@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Secrets</title>
     <link href="https://fonts.googleapis.com/css2?family=Kings&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -18,7 +18,7 @@
                     <a href="index.html"><span>Sec</span>ret<span>s</span></a>
                     </div>
                 </div>
-                <form id="searchForm"></form>
+                <form id="searchForm">
                     <div class="search-bar">
 
                         <div class="search-bar">
@@ -100,7 +100,7 @@
                     </div>
                     
                     <div class="large-button">
-                        <img src="images/Addpost.png" class="add-posts">
+                        <img src="images/Addpost.png" class="add-posts toggle-btn">
                     </div>
 
                     
@@ -114,20 +114,35 @@
 
         <!-- /////////////////////////////////////////////////////////////////////////////// -->
         <!-- overlay for add post  -->
-        <section>
+        <section >
             
-            <div class="add-post hidden-items">
+            <div class="add-post hidden-items add-colour">
                 <div class="container">
                     <div class="top-btns">
                         <div class="top-buttons">
-                            <img src="images/rectangle1.png" alt="" class=" rectangle--1"><img src="images/rectangle2.png" alt="" class=" rectangle--2"><img src="images/rectangle3.png" alt="" class=" rectangle--3"><img src="images/rectangle4.png" alt="" class=" rectangle--4"><img src="images/rectangle5.png" alt="" class=" rectangle--5"> 
+                            <img src="images/rectangle1.png" class="rectangle-btn" data-color="#E2A2DC"><img src="images/rectangle2.png" class="rectangle-btn" data-color="#E1E2A2"><img src="images/rectangle3.png" rectangle-btn" class="rectangle-btn" data-color="#CFF3D0"><img src="images/rectangle4.png" alt="" class="rectangle-btn" data-color="#A2ACE2"><img src="images/rectangle5.png" class="rectangle-btn" data-color="#E2A2A2"> 
                         </div>
-                        <div class="close-btn">
+                        <div class="close-btn toggle-btn">
                             <img src="images/x-square.png" class="exit-button">
                         </div>
                     </div>
+                    <!-- note -->
+                    <div class="add-post hidden-items add-color">
+                        <!-- Your other elements... -->
+                        <label for="fileInput">
+                          <img src="images/image.png" id="imageUpload" class="upload-preview">
+                          <input type="file" id="fileInput" accept="image/*" class="hidden-items">
+                        </label>
+                        <button id="deleteImageBtn" class="hidden-items">X</button>
+                      </div>
+                      
 
-
+                    <div class="Recording-text hidden-items">
+                        <audio controls class="hidden-items display-record" controlsList="nodownload"></audio>
+                        <h5 class="hidden-items blinking" id="recording-text">Recording</h5>
+                        <h5 class="hidden-items" id="timer">0:00</h5>
+                    </div>
+                      
                     <div class="text-fields">
                         <div>
                             <input type="text" class="title" placeholder="Title">
@@ -150,9 +165,12 @@
 
                 <div class="bottom-icons">
                     <div class = "icons-one">
-                        <img src="images/mic.png" alt="" class="microphone"> <img src="images/image.png" alt=""> <img src="images/folder-plus.png" alt="">
+                        <img src="images/mic.png"  class="microphone" id="voiceInput"> 
+                        
+                        <img src="images/image.png" id="imageUpload"> <img src="images/folder-plus.png" alt="">
+                       
                     </div>
-
+                    
                     <div class="send-text">
                         <img src="images/send.png">
                     </div>

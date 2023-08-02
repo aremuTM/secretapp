@@ -76,6 +76,12 @@ nav a span {
   position: sticky;
   top: 0; /* Stick the section to the top of the viewport */
 }
+
+.item-container {
+  position: sticky;
+  top: 0; /* Stick the container to the top of the viewport */
+}
+
 .posts {
   margin-top: 40px;
   display: flex;
@@ -110,6 +116,7 @@ nav a span {
 .hidden-items {
   display: none;
 }
+
 
 .placeholder-text {
   font-family: "kings", poppins;
@@ -148,7 +155,9 @@ nav a span {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   width: 640px;
-  height: 580px;
+  height: 650px;
+  margin-top: 50px;
+  margin-bottom: 120px;
 }
 
 .top-btns {
@@ -280,6 +289,36 @@ nav a span {
 
   .last-list img{
     padding-left: 30px;
+}
+
+
+
+.Recording-text {
+    display: flex;
+    color: red;
+    justify-content: right;
+    padding-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    60%, 100% {
+      opacity: 0;
+    }
+  }
+  
+  #recording-text.blinking {
+    animation: blink 1s infinite;
   }
 
+  #timer{
+    padding-left: 10px;
+}
+  
+  
+
+  /* ///////////////////////////////////// */
   
