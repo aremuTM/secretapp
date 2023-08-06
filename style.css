@@ -86,13 +86,17 @@ nav a span {
   margin-top: 40px;
   display: flex;
 }
-.posts div {
+
+.container-colour {
   display: inline flex;
   justify-content: space-between;
-  background: #e2a2a2;
   border-radius: 10px;
   height: 40px;
   width: 589px;
+  margin-left: 2px;
+  /* border: 0.1px solid; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
 }
 
 .posts div h6 {
@@ -154,10 +158,11 @@ nav a span {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  width: 640px;
-  height: 650px;
+  width: 650px;
+  height: 600px;
   margin-top: 50px;
   margin-bottom: 120px;
+  
 }
 
 .top-btns {
@@ -192,6 +197,7 @@ nav a span {
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 16px;
+  margin-top: auto;
 }
 
 .bury-s {
@@ -201,7 +207,7 @@ nav a span {
 }
 
 .set-pin {
-  margin-top: 50px;
+  margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,8 +234,9 @@ nav a span {
 
 .bottom-icons {
   display: flex;
-  margin-top: 30px;
+  margin-top: 35px;
   justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .icons-one {
@@ -317,8 +324,8 @@ nav a span {
   #timer{
     padding-left: 10px;
 }
-  
-  
 
-  /* ///////////////////////////////////// */
-  
+.pin-message{
+  color: red;
+  text-align: center;
+}

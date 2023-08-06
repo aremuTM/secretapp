@@ -40,25 +40,25 @@
                 <!--list of secrets-->
                 <section class="post-items items-post">
                     <div class="posts items-post">
-                        <div class=" container">
+                        <div class=" container-colour">
                             <h6>killed Tony at Bankos lodge </h6>  <span class="add--date">Mar 13</span>
                         </div>
                     </div>
 
                     <div class="posts post-mar items-post">
-                        <div class=" container">
+                        <div class=" container-colour">
                             <h6>killed Tony at Bankos lodge </h6>  <span class="add--date">Mar 13</span>
                         </div>
                     </div>
 
                     <div class="posts post-mar items-post">
-                        <div class=" container">
+                        <div class=" container-colour">
                             <h6>killed Tony at Bankos lodge </h6>  <span class="add--date">Mar 13</span>
                         </div>
                     </div>
 
                     <div class="posts post-mar items-post">
-                        <div class=" container">
+                        <div class=" container-colour">
                             <h6>killed Tony at Bankos lodge </h6>  <span class="add--date">Mar 13</span>
                         </div>
                     </div>
@@ -120,29 +120,33 @@
                 <div class="container">
                     <div class="top-btns">
                         <div class="top-buttons">
-                            <img src="images/rectangle1.png" class="rectangle-btn" data-color="#E2A2DC"><img src="images/rectangle2.png" class="rectangle-btn" data-color="#E1E2A2"><img src="images/rectangle3.png" rectangle-btn" class="rectangle-btn" data-color="#CFF3D0"><img src="images/rectangle4.png" alt="" class="rectangle-btn" data-color="#A2ACE2"><img src="images/rectangle5.png" class="rectangle-btn" data-color="#E2A2A2"> 
+                            <img src="images/rectangle1.png" class="rectangle-btn" data-color="#E2A2DC" data-id="color1"><img src="images/rectangle2.png" class="rectangle-btn" data-color="#E1E2A2" data-id="color2"><img src="images/rectangle3.png" class="rectangle-btn" data-color="#CFF3D0" data-id="color3"><img src="images/rectangle4.png" alt="" class="rectangle-btn" data-color="#A2ACE2" data-id="color4"><img src="images/rectangle5.png" class="rectangle-btn" data-color="#E2A2A2" data-id="color5"> 
                         </div>
                         <div class="close-btn toggle-btn">
                             <img src="images/x-square.png" class="exit-button">
                         </div>
                     </div>
                     <!-- note -->
+                    <!-- Hidden input element for file uploads NEW MONTH-->
+                        <input type="file" id="file-input" style="display: none">
+                        
                     <div class="add-post hidden-items add-color">
                         <!-- Your other elements... -->
                         <label for="fileInput">
                           <img src="images/image.png" id="imageUpload" class="upload-preview">
-                          <input type="file" id="fileInput" accept="image/*" class="hidden-items">
+                          
                         </label>
-                        <button id="deleteImageBtn" class="hidden-items">X</button>
-                      </div>
+                        
+                    </div>
+                     
                       
-
                     <div class="Recording-text hidden-items">
                         <audio controls class="hidden-items display-record" controlsList="nodownload"></audio>
+                        
                         <h5 class="hidden-items blinking" id="recording-text">Recording</h5>
                         <h5 class="hidden-items" id="timer">0:00</h5>
                     </div>
-                      
+                    
                     <div class="text-fields">
                         <div>
                             <input type="text" class="title" placeholder="Title">
@@ -150,6 +154,7 @@
                         
                         <div>
                             <input type="text" class="bury-s" placeholder="Bury your secrets here">
+                            
                         </div>
                     </div>
 
@@ -159,15 +164,17 @@
                 <div class="set-pin">
                     <div id="container-pin">
                         <img src="images/lock.png"> 
-                        <input type="number" class="pin" placeholder="Set pin">
+                        <input type="number" class="pin" placeholder="Set pin" maxlength="4">
+                        
                     </div>
                 </div>
+                <h6 class="pin-message hidden-items">"Please enter a 4-digit pin."</h6>
 
                 <div class="bottom-icons">
                     <div class = "icons-one">
                         <img src="images/mic.png"  class="microphone" id="voiceInput"> 
                         
-                        <img src="images/image.png" id="imageUpload"> <img src="images/folder-plus.png" alt="">
+                        <!-- <img src="images/image.png" alt="" id="folder-plus-icon"> -->
                        
                     </div>
                     

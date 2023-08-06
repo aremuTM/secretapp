@@ -1,20 +1,26 @@
-// Define an array of colors corresponding to each button
-const colors = ["#E2A2DC", "#E1E2A2", "#CFF3D0", "#A2ACE2", "#E2A2A2"];
+function createItemElement(title, date) {
+  const newItem = document.createElement("div");
+  newItem.classList.add("posts", "items-post");
+  newItem.id = Math.random().toString(36).substring(7);
+  const container = document.createElement("div");
+  container.classList.add("container-colour");
 
-// Select all the buttons
-const recButtons = document.querySelectorAll(".rectangle-btn");
+  // Generate a unique id for the container
+  const id = newItem.id;
 
-// Select the container element whose color you want to change
-const postColour = document.querySelector(".post-colour");
+  // Set the background color of the container
+  container.style.backgroundColor = localStorage.getItem(`postColor-${id}`);
 
-// Function to set the background color based on the button clicked
-function setPostContainerColor(color) {
-  postColour.style.backgroundColor = color;
+  const titleElement = document.createElement("h6");
+  titleElement.textContent = title;
+
+  const dateElement = document.createElement("span");
+  dateElement.classList.add("add--date");
+  dateElement.textContent = date;
+
+  container.appendChild(titleElement);
+  container.appendChild(dateElement);
+  newItem.appendChild(container);
+
+  itemContainer.appendChild(newItem);
 }
-
-// Add click event listeners to the buttons using a loop
-recButtons.forEach((button, index) => {
-  button.addEventListener('click', function() {
-    setPostContainerColor(colors[index]);
-  });
-});
