@@ -5,7 +5,7 @@ const posts = document.querySelectorAll(".post-items");
 const inputField = document.querySelector(".search-input");
 const postBody = document.querySelector(".post-body");
 const secretMessage = document.querySelector(".search-message");
-// const itemContainer = document.querySelector(".item-container");
+const itemContainers = document.querySelector(".item-container");
 //search form
 const searchForm = document.querySelector("#searchForm");
 //addpost buttons
@@ -16,11 +16,8 @@ const postOverLay = document.querySelector(".add-post");
 const toggleBtn = document.querySelectorAll(".toggle-btn");
 
 const closeBtn = document.querySelector(".close-btn");
-// /////////// colour logic///////
 
-//////////audio////////////////
-
-//settings functionality
+//search functionality
 function handleSearch(event) {
   // Check if the key pressed is the Enter key (keyCode 13)
   if (event.keyCode === 13) {
@@ -44,12 +41,11 @@ function handleSearch(event) {
 }
 
 inputField.addEventListener("keydown", handleSearch);
-inputField.addEventListener("blur", function () {
-  window.location.href = "index.html";
-});
+////////////////////////////////////////////////////////////////////
 
+// add post and close post
 function togglePostOverlay() {
-  itemContainer.classList.toggle("hidden-items");
+  itemContainers.classList.toggle("hidden-items");
   postOverLay.classList.toggle("hidden-items");
   searchForm.classList.toggle("hidden-items");
   addPostBtn.classList.toggle("hidden-items");
@@ -57,14 +53,6 @@ function togglePostOverlay() {
 
 addPostBtn.addEventListener("click", togglePostOverlay);
 closeBtn.addEventListener("click", togglePostOverlay);
-
-// create unique id for each post                                                take note
-let postIdCounter = 0; // Initialize a counter for generating unique IDs
-
-function generateUniquePostId() {
-  postIdCounter++;
-  return `post-${postIdCounter}`;
-}
 
 /////////////////////////color logic////////////////////////////////////////////////////////
 
@@ -76,10 +64,9 @@ const postColour = document.querySelector(".add-colour");
 function setPostContainerColor(color, id) {
   postColour.style.backgroundColor = color;
   // Save the color to local storage
-  localStorage.setItem('postColor', color);
+  localStorage.setItem("postColor", color);
   // recently added
-  localStorage.setItem('postColorId', id);
-
+  localStorage.setItem("postColorId", id);
 }
 
 //looping through the buttons
@@ -87,12 +74,11 @@ recButtons.forEach((button) => {
   button.addEventListener("click", function () {
     const color = this.dataset.color;
 
-    // freshly added update 
+    // freshly added update
     const id = this.dataset.id; // Get the unique ID from the data-id attribute
     setPostContainerColor(color, id);
   });
 });
-
 
 ////////////////////////////////////////////////////////////
 /////////////////////////////audio////////////////////////
@@ -100,7 +86,6 @@ const voiceInput = document.getElementById("voiceInput");
 const recordingText = document.getElementById("recording-text");
 const displayRecord = document.querySelector(".display-record");
 const timer = document.getElementById("timer");
-const delAudBtn = document.getElementById("delete-aud");
 
 let mediaRecorder;
 let chunks = [];
@@ -177,13 +162,13 @@ function handleStopRecording() {
     recordingText.classList.add("hidden-items");
     stopRecording();
     displayRecord.classList.remove("hidden-items");
-    delAudBtn.classList.remove("hidden-items");
   }
 }
 
 voiceInput.addEventListener("mousedown", handleStartRecording);
 voiceInput.addEventListener("mouseup", handleStopRecording);
 voiceInput.addEventListener("mouseout", handleStopRecording);
+
 ///////////////////////////////////////submit pin/////////////////////
 const pinInput = document.querySelector(".pin");
 const pinMessage = document.querySelector(".pin-message");
@@ -211,7 +196,7 @@ const titleInput = document.querySelector(".title");
 const secretInput = document.querySelector(".bury-s");
 const uploadBtn = document.querySelector(".send-text");
 const itemContainer = document.querySelector(".post-items");
-const defaultColor = "#ffffff"; // White color in hexadecimal
+const defaultColor = "#ffffff";
 
 // Load existing items from local storage
 const storedItems = JSON.parse(localStorage.getItem("items")) || [];
@@ -234,18 +219,24 @@ uploadBtn.addEventListener("click", function () {
       day: "numeric",
     });
 
-    const selectedColor = localStorage.getItem('postColor');
-    const selectedColorId = localStorage.getItem('postColorId');
+    const selectedColor = localStorage.getItem("postColor");
+    const selectedColorId = localStorage.getItem("postColorId");
 
     // Use the default color if no color was selected
     const colorToUse = selectedColor || defaultColor;
-    const colorIdToUse = selectedColorId || 'default'; // Using 'default' as an identifier for the default color
+    const colorIdToUse = selectedColorId || "default"; // Using 'default' as an identifier for the default color
 
     // Create item element and add to the container
     createItemElement(title, dateString, colorToUse, colorIdToUse); // Pass the color and color ID
 
     // Save item to local storage
-    const newItem = { title, date: dateString, color: colorToUse, colorId: colorIdToUse };
+    const newItem = {
+      title,
+      secret,
+      date: dateString,
+      color: colorToUse,
+      colorId: colorIdToUse,
+    };
     storedItems.push(newItem);
     localStorage.setItem("items", JSON.stringify(storedItems));
 
@@ -253,8 +244,8 @@ uploadBtn.addEventListener("click", function () {
     secretInput.value = "";
 
     // Clear color data from local storage
-    localStorage.removeItem('postColor');
-    localStorage.removeItem('postColorId');
+    localStorage.removeItem("postColor");
+    localStorage.removeItem("postColorId");
 
     // Redirect to another page or take other appropriate action
     window.location.href = "index.html";
@@ -285,7 +276,59 @@ function createItemElement(title, date, color, colorId) {
   newItem.appendChild(container);
 
   // Set a data attribute to store the color ID
-  newItem.setAttribute('data-color-id', colorId);
+  newItem.setAttribute("data-color-id", colorId);
 
   itemContainer.appendChild(newItem);
 }
+
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////// to view content/////////////////////////////
+
+////////
+const placeHolderText = document.querySelector(".placeholder-text");
+const titleContainer = document.querySelectorAll(".items-post");
+const secretTabss = document.querySelector(".secrets-tab");
+
+document.addEventListener("DOMContentLoaded", function () {
+  titleContainer.forEach((item) => {
+    item.addEventListener("click", function () {
+      placeHolderText.style.display = "none";
+      secretTabss.classList.remove("hidden-items");
+      // Get the title and date from the clicked item
+      const title = item.querySelector("h6").textContent;
+      const date = item.querySelector(".add--date").textContent;
+      // Retrieve data from local storage
+      const storedData = JSON.parse(localStorage.getItem("items"));
+
+      if (storedData) {
+        // Find the matching data in the stored array
+        const matchingData = storedData.find(
+          (data) => data.title === title && data.date === date
+        );
+
+        if (matchingData) {
+          // Display the matching data (you can customize this part)
+          const contentContainer = document.querySelector(".secrets-tab");
+          contentContainer.innerHTML = `
+          <h1 class="title-secret">${matchingData.title}</h1>
+            <div class="secrets-containerr" style="background-color: ${matchingData.color}">
+                <div class="time-items">  
+                    <h6 class="post-date">${matchingData.date}</h6>
+                </div>
+                <p class="body-secret">
+                    ${matchingData.secret} <!-- Use template literals to interpolate the secret -->
+                </p> 
+                <div class="bottom-prop">      
+                    <!-- <audio controls class="hidden-items display-record" controlsList="nodownload"></audio> -->
+                </div>
+            </div>
+`;
+        } else {
+          // alert("Data not found or does not match.");
+        }
+      } else {
+        // alert("No data stored.");
+      }
+    });
+  });
+});
