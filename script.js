@@ -54,6 +54,19 @@ function togglePostOverlay() {
 addPostBtn.addEventListener("click", togglePostOverlay);
 closeBtn.addEventListener("click", togglePostOverlay);
 
+// for reload the overlay post
+closeBtn.addEventListener("click", function () {
+  if (displayRecord.src) {
+    // Refresh the page to the home page
+    window.location.href = "index.html"; // Change "index.html" to the appropriate URL
+  } else {
+    titleInput.value = "";
+    secretInput.value = "";
+    pinInput.value = " ";
+    postOverLay.style.backgroundColor = defaultColor;
+  }
+});
+
 /////////////////////////color logic////////////////////////////////////////////////////////
 
 const recButtons = document.querySelectorAll(".rectangle-btn");
@@ -137,6 +150,13 @@ function stopRecording() {
     recordingText.classList.remove("blinking");
 
     clearInterval(timerInterval);
+
+    const blob = new Blob(chunks, { type: "audio/webm" });
+    chunks = [];
+    const audioURL = URL.createObjectURL(blob);
+
+    // Store the audio URL in local storage
+    localStorage.setItem("audioURL", audioURL);
   }
 }
 
@@ -173,6 +193,8 @@ voiceInput.addEventListener("mouseout", handleStopRecording);
 const pinInput = document.querySelector(".pin");
 const pinMessage = document.querySelector(".pin-message");
 
+const inputPinValue = pinInput.value;
+
 pinInput.addEventListener("click", function () {
   pinMessage.classList.remove("hidden-items");
 });
@@ -180,7 +202,7 @@ pinInput.addEventListener("click", function () {
 pinInput.addEventListener("input", function () {
   const enteredPIN = pinInput.value;
 
-  if (enteredPIN.length === 4 && /^\d+$/.test(enteredPIN)) {
+  if (enteredPIN.length === 4 && /^\d+$/) {
     pinMessage.classList.add("hidden-items");
   } else {
     pinMessage.classList.remove("hidden-items");
@@ -203,13 +225,14 @@ const storedItems = JSON.parse(localStorage.getItem("items")) || [];
 for (const item of storedItems) {
   createItemElement(item.title, item.date, item.color, item.colorId); // Pass the color and color ID
 }
+/// send button saves all data to local storage/////////////////
 uploadBtn.addEventListener("click", function () {
   const title = titleInput.value;
   const secret = secretInput.value;
+  const pin = pinInput.value;
 
-  if (!title || !secret) {
-    // Display an error message or take appropriate action
-    return; // Stop further execution of the event handler
+  if (!title || !secret || !pin) {
+    return;
   }
 
   if (title && secret) {
@@ -221,31 +244,30 @@ uploadBtn.addEventListener("click", function () {
 
     const selectedColor = localStorage.getItem("postColor");
     const selectedColorId = localStorage.getItem("postColorId");
+    const audioURL = localStorage.getItem("audioURL"); // Get the stored audio URL
 
-    // Use the default color if no color was selected
-    const colorToUse = selectedColor || defaultColor;
-    const colorIdToUse = selectedColorId || "default"; // Using 'default' as an identifier for the default color
-
-    // Create item element and add to the container
-    createItemElement(title, dateString, colorToUse, colorIdToUse); // Pass the color and color ID
-
-    // Save item to local storage
     const newItem = {
       title,
       secret,
+      pin, // Store the entered PIN
       date: dateString,
-      color: colorToUse,
-      colorId: colorIdToUse,
+      color: selectedColor || defaultColor,
+      colorId: selectedColorId || "default",
+      audioURL, // Store the audio URL
     };
+
     storedItems.push(newItem);
     localStorage.setItem("items", JSON.stringify(storedItems));
 
     titleInput.value = "";
     secretInput.value = "";
+    pinInput.value = ""; // Clear the PIN input
 
-    // Clear color data from local storage
+    // Clear data from local storage
     localStorage.removeItem("postColor");
     localStorage.removeItem("postColorId");
+    localStorage.removeItem("audioURL");
+    localStorage.removeItem(inputPinValue);
 
     // Redirect to another page or take other appropriate action
     window.location.href = "index.html";
@@ -281,8 +303,8 @@ function createItemElement(title, date, color, colorId) {
   itemContainer.appendChild(newItem);
 }
 
-// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ///////////////////////////////////////// to view content/////////////////////////////
+// ////////////////////////////////////////////////UI functionality//////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////// to view content /////////////////////////////
 
 ////////
 const placeHolderText = document.querySelector(".placeholder-text");
@@ -321,8 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="bottom-prop">      
                     <!-- <audio controls class="hidden-items display-record" controlsList="nodownload"></audio> -->
                 </div>
-            </div>
-`;
+            </div>`;
         } else {
           // alert("Data not found or does not match.");
         }
